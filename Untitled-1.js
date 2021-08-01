@@ -34,6 +34,8 @@ str = str.split("");
 str = str.reverse();
 str = str.join("");
 
+// Здесь можно использовать короткую форму записи: str = str.split("").reverse().join("")
+
 console.log(str)
 
 
@@ -62,29 +64,43 @@ for (let i = 0; i < 4; i = i + 1) {
     }
 }
 
+// Задание выполнено неверно. По условию нужно было определить, содержит ли массив все равные элементы. Ваш код выводит true или false для каждого элемента, по этому выводу невозможно понять, содержит массив все равные элементы или нет. Правильное решение написала ниже
+
+let numberArray = [1, 1, '1', 1];
+let isEqual = true;
+
+for (let i = 1; i < numberArray.length; i++) {
+    if (numberArray[i] !== numberArray[0]) {
+        isEqual = false;
+        break;
+    }
+}
+
+console.log(isEqual);
+
 
 //7 задание 
-let zeros=0;
-let strs=0;
-let countables=0;
-let uncountables=0;
-let nulls=0;
+let zeros=0, strs=0, countables=0, uncountables=0, nulls=0;
 
-let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, null, 'dog', 'cat', 'beer'];
+let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, null, 'dog', 'cat', 'beer', true, false, NaN, undefined];
 for (i = 0; i<array.length; i++) {
-    
-    if (typeof array[i] == 'string') {
+
+    if (typeof array[i] === 'number' && !isNaN(array[i])) {
+        if (array[i] === 0) {
+            zeros++;
+        } else if (array[i] % 2 === 0) {
+            countables++;
+        } else {
+            uncountables++;
+        }
+    } if (typeof array[i] == 'string') {
         strs++;
-    } else if (array[i]==null){
+    } else if (array[i] === null){
         nulls++;
-    } else if (array[i]==0) {
-        zeros++;
-    } else if (array[i] % 2 === 0) {
-        countables++;
-    } else {
-        uncountables++;
-    }   
+    }  
 }
 
 
 alert(`Нулей - ${zeros} \n Строк - ${strs} \n Нуллов - ${nulls} \n Четных - ${countables} \n Нечетных - ${uncountables}`)
+
+// Решение тоже не совсем верное, т.к. не учитывает все типы данных (по условию в массиве могут быть какие угодно значения). Если в текущем виде добавить в массив например булево значение или NaN, то подсчет будет неверный. Выше исправила на более правильный вариант.
